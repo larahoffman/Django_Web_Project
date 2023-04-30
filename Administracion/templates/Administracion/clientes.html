@@ -5,16 +5,19 @@
 <main class="px-3">
   <h1>Clientes</h1>
   <p class="lead">Ver y agregar clientes</p>
-  <p class="lead">
-    <a href="#" class="btn btn-lg btn-light fw-bold border-white bg-white">Proximamente un formulario</a>
-  </p>
-  <form action="" method="post" class="">{% csrf_token %}
-    <label id="nombre">Nombre: </label>
+  {% if miFormulario.errors %}
+  <p style="color: red;">Revisar los datos.</p>
+  {% endif %}
+  <form action="" method="POST" class="">{% csrf_token %}
+    <table>
+      {{ miFormulario.as_table }}
+    </table>
+    <!-- <label id="nombre">Nombre: </label>
     <input type="text" name="nombre" id="nombre" required><br>
     <label id="nombre">Correo: </label>
     <input type="email" name="correo" id="correo" required><br>
     <label id="nombre">Telefono: </label>
-    <input type="text" name="telefono" id="telefono" required><br>
+    <input type="text" name="telefono" id="telefono" required><br> -->
     <input type="submit" value="Agregar">
 
   </form>
