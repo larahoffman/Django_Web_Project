@@ -6,6 +6,16 @@ from .forms import *
 def inicio(request):
     return render(request, 'Administracion/index.html')
 
+def buscar(request):
+    if request.GET["nombre"]:
+        nombre = request.GET["nombre"]
+        clientes = Clientes.objects.filter(nombre__icontains=nombre)
+        return render(request, "Administracion/index.html", {"clientes":clientes, "nombre":nombre})
+    else:
+        respuesta = "Ingrese un nombre"
+        return render(request, "Administracion/index.html", {"respuesta":respuesta})
+
+
 def clientes(request):
     if request.method == 'POST':
         miFormulario = ClientesFormulario(request.POST)

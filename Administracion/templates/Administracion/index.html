@@ -5,8 +5,20 @@
 <main class="px-3">
   <h1>Bienvenido</h1>
   <p class="lead">Este es el inicio</p>
-  <p class="lead">
-    <a href="#" class="btn btn-lg btn-light fw-bold border-white bg-white">Proximamente un buscador</a>
-  </p>
+  <form action="/Administracion/buscar" method="GET">
+    <label for="buscar">Buscar clientes</label><br>
+    <input type="text" name="nombre" id="buscar" placeholder="Ingrese un nombre">
+    <input type="submit" value="Buscar">
+  </form>
+  {% if clientes %}
+    <ul>
+      {% for cliente in clientes %}
+      <li>Nombre: {{cliente.nombre}}</li>
+      <li>Correo electronico: {{cliente.correo}}</li>
+      <li>Telefono: {{cliente.telefono}}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <p style="color: red;">{{respuesta}}</p>
 </main>
 {% endblock %}
