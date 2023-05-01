@@ -4,22 +4,16 @@
 {% block lo-que-cambia %}
 <main class="px-3">
   <h1>Clientes</h1>
-  <p class="lead">Ver y agregar clientes</p>
+  <p class="lead">Agregar clientes</p>
   {% if miFormulario.errors %}
   <p style="color: red;">Revisar los datos.</p>
   {% endif %}
-  <form action="" method="POST" class="lead needs-validation">{% csrf_token %}
-    <table>
-      {{ miFormulario.as_table }}
-    </table>
-    <!-- <label id="nombre">Nombre: </label>
-    <input type="text" name="nombre" id="nombre" required><br>
-    <label id="nombre">Correo: </label>
-    <input type="email" name="correo" id="correo" required><br>
-    <label id="nombre">Telefono: </label>
-    <input type="text" name="telefono" id="telefono" required><br> -->
-    <input type="submit" value="Agregar">
-
+  <form action="" method="POST" class="row g-3 align-items-center">{% csrf_token %}
+    <div class="col-12">
+      {{ miFormulario.as_p }}
+    </div>
+    <input class="btn btn-primary" type="submit" value="Agregar">
   </form>
+  <h5>{{mensaje}}</h5>
 </main>
 {% endblock %}

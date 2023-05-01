@@ -4,9 +4,17 @@
 {% block lo-que-cambia %}
 <main class="px-3">
   <h1>Productos</h1>
-  <p class="lead">Ver y agregar productos</p>
-  <p class="lead">
-    <a href="#" class="btn btn-lg btn-light fw-bold border-white bg-white">Proximamente un formulario</a>
-  </p>
+  <p class="lead">Agregar productos</p>
+  {% if miFormulario.errors %}
+  <p style="color: red;">Revisar los datos.</p>
+  {% endif %}
+  <form action="" method="POST" class="row g-3 align-items-center">{% csrf_token %}
+    <div class="col-12">
+      {{ miFormulario.as_p }}
+    </div>
+    <input type="submit" class="btn btn-primary" value="Agregar">
+
+  </form>
+  <h5>{{mensaje}}</h5>
 </main>
 {% endblock %}
