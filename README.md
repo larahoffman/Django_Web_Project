@@ -25,4 +25,5 @@ Contiene un formulario para agregar productos. Se deben completar todos los camp
 Contiene un formulario para agregar pedidos. El campo 'notas' no es obligatorio.
 
 #
+# Otros
 Se recomienda agregar primero un cliente antes de realizar la búsqueda.
