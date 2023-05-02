@@ -1,7 +1,6 @@
 # Tercera Preentrega -- Lara Hoffman
-
-# Proyecto que contiene una aplicación llamada Administracion para manejar los clientes, productos y pedidos de una empresa.
-# Está pensado para que el sistema sea usado por el personal de la empresa.
+Proyecto que contiene una aplicación llamada Administracion para manejar los clientes, productos y pedidos de una empresa.
+Está pensado para que el sistema sea usado por el personal de la empresa.
 
 # Funcionalidades generales
 * Buscar por nombre de cliente
@@ -25,5 +24,5 @@ Contiene un formulario para agregar productos. Se deben completar todos los camp
 # Pedidos
 Contiene un formulario para agregar pedidos. El campo 'notas' no es obligatorio.
 
-# ----------- #
+#
 Se recomienda agregar primero un cliente antes de realizar la búsqueda.
