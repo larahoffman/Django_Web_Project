@@ -7,6 +7,8 @@ Está pensado para que el sistema sea usado por el personal de la empresa.
 * Agregar clientes, productos y pedidos
 * Navegar a través del menú de navegación entre las diferentes vistas
 
+Se recomienda agregar primero un cliente antes de realizar la búsqueda.
+
 # -- Vistas y Templates -- #
 
 # Layout
@@ -23,7 +25,3 @@ Contiene un formulario para agregar productos. Se deben completar todos los camp
 
 # Pedidos
 Contiene un formulario para agregar pedidos. El campo 'notas' no es obligatorio.
-
-#
-# Otros
-Se recomienda agregar primero un cliente antes de realizar la búsqueda.
