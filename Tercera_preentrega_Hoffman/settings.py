@@ -55,7 +55,7 @@ ROOT_URLCONF = 'Tercera_preentrega_Hoffman.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["C:/Django_Web_Project/Tercera_preentrega_Hoffman/templates"],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
