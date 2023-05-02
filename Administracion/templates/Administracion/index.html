@@ -6,19 +6,20 @@
   <h1>Bienvenido</h1>
   <hr>
   <form action="/Administracion/buscar" class="row g-3" method="GET">
-    <label for="buscar" class="form-label">Buscar clientes</label><br>
+    <label for="buscar" class="lead form-label">Buscar clientes de la empresa</label><br>
     <input type="text" name="nombre" class="form-control" id="buscar" placeholder="Ingrese un nombre">
     <input type="submit" value="Buscar" class="btn btn-primary">
   </form>
-  {% if clientes %}
-    {% for cliente in clientes %}
-      <ul class="list-group list-group-horizontal">
-        <li class="list-group-item">Nombre: {{cliente.nombre}}</li>
-        <li class="list-group-item">Correo electronico: {{cliente.correo}}</li>
-        <li class="list-group-item">Telefono: {{cliente.telefono}}</li>
-      </ul>
-    {% endfor %}
-  {% endif %}
-  <h5 style="color: red;">{{respuesta}}</h5>
+  <br>
+    {% if clientes %}
+      {% for cliente in clientes %}
+        <ul class="list-group list-group-horizontal-xxl">
+          <li class="list-group-item text-bg-dark">Nombre: {{cliente.nombre}}</li>
+          <li class="list-group-item text-bg-dark">Correo electronico: {{cliente.correo}}</li>
+          <li class="list-group-item text-bg-dark">Telefono: {{cliente.telefono}}</li>
+        </ul>
+      {% endfor %}
+    {% endif %}
+  <h5 style="color: rgb(214, 46, 46); padding: 14px;">{{respuesta}}</h5>
 </main>
 {% endblock %}
