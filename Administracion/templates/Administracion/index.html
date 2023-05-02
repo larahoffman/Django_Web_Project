@@ -4,21 +4,21 @@
 {% block lo-que-cambia %}
 <main class="px-3">
   <h1>Bienvenido</h1>
-  <p class="lead">Este es el inicio</p>
-  <form action="/Administracion/buscar" method="GET">
-    <label for="buscar">Buscar clientes</label><br>
-    <input type="text" name="nombre" id="buscar" placeholder="Ingrese un nombre">
-    <input type="submit" value="Buscar">
+  <hr>
+  <form action="/Administracion/buscar" class="row g-3" method="GET">
+    <label for="buscar" class="form-label">Buscar clientes</label><br>
+    <input type="text" name="nombre" class="form-control" id="buscar" placeholder="Ingrese un nombre">
+    <input type="submit" value="Buscar" class="btn btn-primary">
   </form>
   {% if clientes %}
-    <ul>
-      {% for cliente in clientes %}
-      <li>Nombre: {{cliente.nombre}}</li>
-      <li>Correo electronico: {{cliente.correo}}</li>
-      <li>Telefono: {{cliente.telefono}}</li>
-      {% endfor %}
-    </ul>
+    {% for cliente in clientes %}
+      <ul class="list-group list-group-horizontal">
+        <li class="list-group-item">Nombre: {{cliente.nombre}}</li>
+        <li class="list-group-item">Correo electronico: {{cliente.correo}}</li>
+        <li class="list-group-item">Telefono: {{cliente.telefono}}</li>
+      </ul>
+    {% endfor %}
   {% endif %}
-  <p style="color: red;">{{respuesta}}</p>
+  <h5 style="color: red;">{{respuesta}}</h5>
 </main>
 {% endblock %}
