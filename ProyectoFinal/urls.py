@@ -1,5 +1,5 @@
 """
-URL configuration for Tercera_preentrega_Hoffman project.
+URL configuration for ProyectoFinal project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -20,5 +20,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('Administracion/', include('Administracion.urls')) # si lo cambio, tengo que cambiar el resto de los urls
+    path('', include('Administracion.urls')) # si lo cambio, tengo que cambiar el resto de los urls
 ]
