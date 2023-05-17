@@ -1,0 +1,15 @@
+{% extends "AppFinal/layout.html" %}
+{% load static %}
+
+{% block lo-que-cambia %}
+
+    <h1>Productos</h1>
+    <hr>
+    <p>Agregar productos</p>
+
+    {% for producto in productos %}
+        <li>{{producto}}</li>
+    {% endfor %}
+
+
+{% endblock %}

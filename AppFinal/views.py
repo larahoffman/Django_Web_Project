@@ -1,10 +1,16 @@
 from django.shortcuts import render
-# from .models import *
-# from .forms import *
+from .models import *
+from .forms import *
 # Create your views here.
 
 def inicio(request):
     return render(request, 'AppFinal/index.html')
+
+def leerProductos(request):
+    productos = Productos.objects.all()
+    context = {"productos":productos}
+    return render(request, "AppFinal/leerProductos.html", context)
+
 
 # def buscar(request):
 #     if request.GET["nombre"]:
