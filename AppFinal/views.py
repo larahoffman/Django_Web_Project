@@ -11,6 +11,11 @@ def leerProductos(request):
     context = {"productos":productos}
     return render(request, "AppFinal/leerProductos.html", context)
 
+def leerMensajes(request):
+    mensajes = Mensajes.objects.all()
+    context = {"mensajes":mensajes}
+    return render(request, "AppFinal/leerMensajes.html", context)
+
 
 # def buscar(request):
 #     if request.GET["nombre"]:
@@ -39,36 +44,78 @@ def leerProductos(request):
 #         miFormulario = ClientesFormulario()
 #         return render(request, "AppFinal/clientes.html", {"miFormulario":miFormulario})
 
-# def productos(request):
-#     if request.method == 'POST':
-#         miFormulario = ProductosFormulario(request.POST)
-#         print(miFormulario)
+def productos(request):
+    if request.method == 'POST':
+        miFormulario = ProductosFormulario(request.POST)
+        print(miFormulario)
 
-#         if miFormulario.is_valid:
-#             info = miFormulario.cleaned_data
-#             Producto = Productos(descripcion = info['descripcion'], codigo_producto = info['codigo_producto'])
-#             Producto.save()
+        if miFormulario.is_valid:
+            info = miFormulario.cleaned_data
+            Producto = Productos(nombre = info['nombre'], categoria = info['categoria'], descripcion = info['descripcion'], precio = info['precio'], imagen = info['imagen'], stock = info['stock'])
+            Producto.save()
 
-#             mensaje = "¡Producto agregado con éxito!"
-#             miFormulario = ProductosFormulario()
-#             return render(request, "AppFinal/productos.html", {"miFormulario":miFormulario, "mensaje":mensaje})
-#     else:
-#         miFormulario = ProductosFormulario()
-#         return render(request, "AppFinal/productos.html", {"miFormulario":miFormulario})        
+            mensaje = "¡Producto agregado con éxito!"
+            miFormulario = ProductosFormulario()
+            return render(request, "AppFinal/productos.html", {"miFormulario":miFormulario, "mensaje":mensaje})
+    else:
+        miFormulario = ProductosFormulario()
+        return render(request, "AppFinal/productos.html", {"miFormulario":miFormulario})
+     
+def mensajes(request):
+    if request.method == 'POST':
+        miFormulario = MensajesFormulario(request.POST)
+        print(miFormulario)
 
-# def pedidos(request):
-#     if request.method == 'POST':
-#         miFormulario = PedidosFormulario(request.POST)
-#         print(miFormulario)
+        if miFormulario.is_valid():
+            info = miFormulario.cleaned_data
+            pedido = Mensajes(nombre = info['nombre'], email = info['email'], comentario = info['comentario'])
+            pedido.save()
 
-#         if miFormulario.is_valid:
-#             info = miFormulario.cleaned_data
-#             pedido = Pedidos(numero_pedido = info['numero_pedido'], estado = info['estado'], notas = info['notas'])
-#             pedido.save()
+            mensaje = "Su comentario ha sido añadido con éxito"
+            miFormulario = MensajesFormulario()
+            return render(request, "AppFinal/mensajes.html", {"miFormulario":miFormulario, "mensaje":mensaje})
+    else:
+        miFormulario = MensajesFormulario()
+        return render(request, "AppFinal/mensajes.html", {"miFormulario":miFormulario})
 
-#             mensaje = "¡Pedido agregado con éxito!"
-#             miFormulario = PedidosFormulario()
-#             return render(request, "App/pedidos.html", {"miFormulario":miFormulario, "mensaje":mensaje})
-#     else:
-#         miFormulario = PedidosFormulario()
-#         return render(request, "App/pedidos.html", {"miFormulario":miFormulario})
+def eliminarMensaje(request, mensaje_nombre):
+    mensaje = Mensajes.objects.get(nombre=mensaje_nombre)
+    mensaje.delete()
+ 
+    # vuelvo al menú
+    mensajes = Mensajes.objects.all()  # trae todos los mensajees
+ 
+    contexto = {"mensajes": mensajes}
+ 
+    return render(request, "AppFinal/leerMensajes.html", contexto)
+
+def editarMensaje(request, mensaje_nombre):
+    mensaje = Mensajes.objects.get(nombre=mensaje_nombre)
+
+    if request.method == 'POST':
+
+        # aquí mellega toda la información del html
+        miFormulario = MensajesFormulario(request.POST)
+
+        print(miFormulario)
+
+        if miFormulario.is_valid:
+
+            info = miFormulario.cleaned_data
+
+            mensaje.nombre = info['nombre']
+            mensaje.email = info['email']
+            mensaje.comentario = info['comentario']
+
+            mensaje.save()
+
+            mensajes = Mensajes.objects.all()
+            context = {"mensajes":mensajes}
+            return render(request, "AppFinal/leerMensajes.html", context) #mejor que te lleve a otra pagina como el inicio
+    # En caso que no sea post
+    else:
+        # Creo el formulario con los datos que voy a modificar
+        miFormulario = MensajesFormulario(initial={'nombre': mensaje.nombre, 'email': mensaje.email, 'comentario': mensaje.comentario})
+
+    # Voy al html que me permite editar
+    return render(request, "AppFinal/editarMensajes.html", {"miFormulario": miFormulario, "mensaje_nombre": mensaje_nombre})

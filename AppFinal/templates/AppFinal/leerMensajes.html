@@ -1,0 +1,18 @@
+{% extends "AppFinal/layout.html" %}
+{% load static %}
+
+{% block lo-que-cambia %}
+
+    <h1>Comentarios</h1>
+    <hr>
+    <p>Ver lo que se dice de...</p>
+
+    {% for mensaje in mensajes %}
+        <li>{{mensaje}}</li>
+        <a class="btn btn-primary" href="{% url 'EditarMensaje' mensaje.nombre %}">Editar</a>
+        <a class="btn btn-danger" href="{% url 'EliminarMensaje' mensaje.nombre %}">Eliminar</a>
+    {% endfor %}
+    <hr>
+    <a class="btn btn-secondary" href="mensajes">Agregar un comentario</a>
+
+{% endblock %}
