@@ -33,7 +33,7 @@ class ProductosCreate(CreateView):
 class ProductosUpdate(UpdateView):
     model = Productos
     success_url = "/productos/list"
-    fields = ['nombre', 'categoria', 'descripcion', 'precio', 'imagen', 'stock', 'autor']
+    fields = '__all__'
 
 class ProductosDelete(DeleteView):
     model = Productos
