@@ -3,6 +3,11 @@ from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+
 
 from .models import *
 from .forms import *
@@ -11,10 +16,64 @@ from .forms import *
 def inicio(request):
     return render(request, 'AppFinal/index.html')
 
+def buscar(request):
+    if request.GET["nombre"]:
+        nombre = request.GET["nombre"]
+        productos = Productos.objects.filter(nombre__icontains=nombre)
+        return render(request, "AppFinal/index.html", {"productos":productos, "nombre":nombre})
+    else:
+        respuesta = "Ingrese un nombre"
+        return render(request, "AppFinal/index.html", {"respuesta":respuesta})
+
 # def leerProductos(request):
 #     productos = Productos.objects.all()
 #     context = {"productos":productos}
 #     return render(request, "AppFinal/leerProductos.html", context)
+
+def login_request(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data = request.POST)
+
+        if form.is_valid():
+            usuario = form.cleaned_data.get('username')
+            contrasenia = form.cleaned_data.get('password')
+
+            user = authenticate(username = usuario, password = contrasenia)
+
+            if user is not None:
+                login(request, user)
+                mensaje = f"Bienvenido {usuario}"
+                return render(request, "AppFinal/index.html", {"mensaje": mensaje})
+            else:
+                mensajeError = "Error, datos incorrectos"
+                return render(request, "AppFinal/login.html", {"mensajeError": mensajeError})
+        else:
+            mensajeForm = "Usuario o contraseña incorrectos"
+            form = AuthenticationForm() #limpio los datos
+            return render(request, "AppFinal/login.html", {"form":form, "mensajeForm": mensajeForm})
+    
+    form = AuthenticationForm()
+
+    return render(request, "AppFinal/login.html", {"form": form})
+
+def register(request):
+    if request.method == "POST":
+        form = UserRegisterForm(request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            form.save()
+
+            form = UserRegisterForm()
+            mensaje = "Usuario creado con éxito"
+            return render(request, "AppFinal/registro.html", {"form": form, "mensaje":mensaje})
+        else:
+            mensajeError = "Error al generar el usuario"
+            return render(request, "AppFinal/registro.html", {"form": form, "mensaje":mensajeError})
+    else:
+        form = UserRegisterForm()
+
+    return render(request, "AppFinal/registro.html", {"form": form})
 
 class ProductosList(ListView):
     model = Productos
@@ -43,34 +102,6 @@ def leerMensajes(request):
     mensajes = Mensajes.objects.all()
     context = {"mensajes":mensajes}
     return render(request, "AppFinal/leerMensajes.html", context)
-
-
-def buscar(request):
-    if request.GET["nombre"]:
-        nombre = request.GET["nombre"]
-        productos = Productos.objects.filter(nombre__icontains=nombre)
-        return render(request, "AppFinal/index.html", {"productos":productos, "nombre":nombre})
-    else:
-        respuesta = "Ingrese un nombre"
-        return render(request, "AppFinal/index.html", {"respuesta":respuesta})
-
-
-# def usuarios(request):
-#     if request.method == 'POST':
-#         miFormulario = ClientesFormulario(request.POST)
-#         print(miFormulario)
-
-#         if miFormulario.is_valid:
-#             info = miFormulario.cleaned_data
-#             cliente = Clientes(nombre = info['nombre'], correo = info['correo'], telefono = info['telefono'])
-#             cliente.save()
-
-#             mensaje = "¡Cliente agregado con éxito!"
-#             miFormulario = ClientesFormulario() #limpio los datos
-#             return render(request, "AppFinal/clientes.html", {"miFormulario":miFormulario, "mensaje":mensaje})
-#     else:
-#         miFormulario = ClientesFormulario()
-#         return render(request, "AppFinal/clientes.html", {"miFormulario":miFormulario})
 
 def productos(request):
     if request.method == 'POST':
@@ -106,6 +137,7 @@ def mensajes(request):
         miFormulario = MensajesFormulario()
         return render(request, "AppFinal/mensajes.html", {"miFormulario":miFormulario})
 
+@login_required
 def eliminarMensaje(request, mensaje_nombre):
     mensaje = Mensajes.objects.get(nombre=mensaje_nombre)
     mensaje.delete()
@@ -116,6 +148,7 @@ def eliminarMensaje(request, mensaje_nombre):
  
     return render(request, "AppFinal/leerMensajes.html", contexto)
 
+@login_required
 def editarMensaje(request, mensaje_nombre):
     mensaje = Mensajes.objects.get(nombre=mensaje_nombre)
 

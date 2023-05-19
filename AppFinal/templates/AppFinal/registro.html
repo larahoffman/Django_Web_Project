@@ -1,0 +1,22 @@
+{% extends "AppFinal/layout.html" %}
+{% load static %}
+
+{% block lo-que-cambia %}
+<main class="px-3">
+  <h2>Bienvenidx</h2>
+  <hr>
+  <!-- {% if miFormulario.errors %}
+  <p style="color: red;">Revisar los datos.</p>
+  {% endif %}-->
+  <form action="" method="POST" class="">{% csrf_token %}
+    <div class="col-12">
+      {{ form.as_p }}
+    </div>
+    <p>{{mensaje}}</p>
+    <p>{{mensajeError}}</p>
+    <button type="submit">Registrarse</button>
+
+  </form>
+  <!-- <h5>{{mensaje}}</h5> -->
+</main>
+{% endblock %}

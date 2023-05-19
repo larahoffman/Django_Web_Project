@@ -1,5 +1,7 @@
 from django.urls import path
 from AppFinal import views
+from django.contrib.auth.views import LogoutView
+
 
 urlpatterns = [
     path('', views.inicio, name="Inicio"),
@@ -16,5 +18,9 @@ urlpatterns = [
     path('eliminarMensaje/<mensaje_nombre>', views.eliminarMensaje, name="EliminarMensaje"),
     path('editarMensajes/<mensaje_nombre>', views.editarMensaje, name="EditarMensaje"),
     # path('pedidos', views.pedidos, name="Pedidos"),
-    path('buscar', views.buscar, name="Buscar")
+    path('buscar', views.buscar, name="Buscar"),
+    path('login', views.login_request, name="Login"),
+    path('registro', views.register, name="Register"),
+    path('logout', LogoutView.as_view(template_name='AppFinal/index.html'), name='Logout'),
+
 ]
