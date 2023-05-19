@@ -3,13 +3,18 @@ from AppFinal import views
 
 urlpatterns = [
     path('', views.inicio, name="Inicio"),
-    path('leerProductos', views.leerProductos, name="LeerProductos"),
+    # path('leerProductos', views.leerProductos, name="LeerProductos"),
+    path('productos/list', views.ProductosList.as_view(), name="List"),
+    path(r'^(?P<pk>\d+)$', views.ProductosDetail.as_view(), name="Detail"),
+    path(r'^nuevo$', views.ProductosCreate.as_view(), name="New"),
+    path(r'^editar/(?P<pk>\d+)$', views.ProductosUpdate.as_view(), name="Edit"),
+    path(r'^borrar/(?P<pk>\d+)$', views.ProductosDelete.as_view(), name="Delete"),
     # path('usuarios', views.usuarios, name="Usuarios"),
-    path('productos', views.productos, name="Productos"),
+    # path('productos', views.productos, name="Productos"),
     path('mensajes', views.mensajes, name="Mensajes"),
     path('leerMensajes', views.leerMensajes, name="LeerMensajes"),
     path('eliminarMensaje/<mensaje_nombre>', views.eliminarMensaje, name="EliminarMensaje"),
-    path('editarMensajes/<mensaje_nombre>', views.editarMensaje, name="EditarMensaje")
+    path('editarMensajes/<mensaje_nombre>', views.editarMensaje, name="EditarMensaje"),
     # path('pedidos', views.pedidos, name="Pedidos"),
-    # path('buscar', views.buscar, name="Buscar")
+    path('buscar', views.buscar, name="Buscar")
 ]

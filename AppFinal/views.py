@@ -1,4 +1,9 @@
 from django.shortcuts import render
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+
 from .models import *
 from .forms import *
 # Create your views here.
@@ -6,10 +11,33 @@ from .forms import *
 def inicio(request):
     return render(request, 'AppFinal/index.html')
 
-def leerProductos(request):
-    productos = Productos.objects.all()
-    context = {"productos":productos}
-    return render(request, "AppFinal/leerProductos.html", context)
+# def leerProductos(request):
+#     productos = Productos.objects.all()
+#     context = {"productos":productos}
+#     return render(request, "AppFinal/leerProductos.html", context)
+
+class ProductosList(ListView):
+    model = Productos
+    template_name = "AppFinal/productos_list.html"
+
+class ProductosDetail(DetailView):
+    model = Productos
+    template_name = "AppFinal/productos_detalle.html"
+
+class ProductosCreate(CreateView):
+    model = Productos
+    template_name = "AppFinal/productos_create.html"
+    success_url = "/productos/list"
+    fields = '__all__'
+
+class ProductosUpdate(UpdateView):
+    model = Productos
+    success_url = "/productos/list"
+    fields = ['nombre', 'categoria', 'descripcion', 'precio', 'imagen', 'stock', 'autor']
+
+class ProductosDelete(DeleteView):
+    model = Productos
+    success_url = "/productos/list"
 
 def leerMensajes(request):
     mensajes = Mensajes.objects.all()
@@ -17,14 +45,14 @@ def leerMensajes(request):
     return render(request, "AppFinal/leerMensajes.html", context)
 
 
-# def buscar(request):
-#     if request.GET["nombre"]:
-#         nombre = request.GET["nombre"]
-#         clientes = Clientes.objects.filter(nombre__icontains=nombre)
-#         return render(request, "AppFinal/index.html", {"clientes":clientes, "nombre":nombre})
-#     else:
-#         respuesta = "Ingrese un nombre"
-#         return render(request, "AppFinal/index.html", {"respuesta":respuesta})
+def buscar(request):
+    if request.GET["nombre"]:
+        nombre = request.GET["nombre"]
+        productos = Productos.objects.filter(nombre__icontains=nombre)
+        return render(request, "AppFinal/index.html", {"productos":productos, "nombre":nombre})
+    else:
+        respuesta = "Ingrese un nombre"
+        return render(request, "AppFinal/index.html", {"respuesta":respuesta})
 
 
 # def usuarios(request):
@@ -82,8 +110,7 @@ def eliminarMensaje(request, mensaje_nombre):
     mensaje = Mensajes.objects.get(nombre=mensaje_nombre)
     mensaje.delete()
  
-    # vuelvo al menú
-    mensajes = Mensajes.objects.all()  # trae todos los mensajees
+    mensajes = Mensajes.objects.all()  # trae todos los mensajes
  
     contexto = {"mensajes": mensajes}
  
@@ -94,7 +121,6 @@ def editarMensaje(request, mensaje_nombre):
 
     if request.method == 'POST':
 
-        # aquí mellega toda la información del html
         miFormulario = MensajesFormulario(request.POST)
 
         print(miFormulario)
@@ -112,10 +138,7 @@ def editarMensaje(request, mensaje_nombre):
             mensajes = Mensajes.objects.all()
             context = {"mensajes":mensajes}
             return render(request, "AppFinal/leerMensajes.html", context) #mejor que te lleve a otra pagina como el inicio
-    # En caso que no sea post
     else:
-        # Creo el formulario con los datos que voy a modificar
         miFormulario = MensajesFormulario(initial={'nombre': mensaje.nombre, 'email': mensaje.email, 'comentario': mensaje.comentario})
 
-    # Voy al html que me permite editar
     return render(request, "AppFinal/editarMensajes.html", {"miFormulario": miFormulario, "mensaje_nombre": mensaje_nombre})

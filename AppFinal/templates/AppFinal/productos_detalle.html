@@ -1,0 +1,16 @@
+{% extends "AppFinal/layout.html" %}
+{% load static %}
+
+{% block lo-que-cambia %}
+<main class="px-3">
+  <h1>Productos</h1>
+  <hr>
+  <p class="lead">Detalle</p>
+    <img src="" alt=""> <!--imagen del producto-->
+    <p>{{productos.nombre}}</p>
+    <p>{{productos.categoria}}</p>
+    <p>{{productos.descripcion}}</p>
+    <p>{{productos.precio}}</p>
+    <a href="{% url 'List' %}">Volver</a>
+</main>
+{% endblock %}

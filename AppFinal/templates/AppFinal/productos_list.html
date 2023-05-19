@@ -1,0 +1,24 @@
+{% extends "AppFinal/layout.html" %}
+{% load static %}
+
+{% block lo-que-cambia %}
+
+    <h1>Productos</h1>
+    <hr>
+    <a href="{% url 'New'%}">Agregar un producto</a>
+
+    {% for producto in object_list %}
+        <li><img src="/media/productos/" alt="imagen_producto"></li>
+        <li><p>{{producto.nombre}}</p></li>
+        <li><p>{{producto.descripcion}}</p></li>
+        <li><p>{{producto.precio}}</p></li>
+        <li><p>
+                <a href="{% url 'Detail' producto.id %}">Ver más</a> |
+                <a href="{% url 'Edit' producto.id %}">Editar</a> |
+                <a href="{% url 'Delete' producto.id %}">Eliminar</a>
+            </p>
+        </li>
+    {% endfor %}
+
+
+{% endblock %}

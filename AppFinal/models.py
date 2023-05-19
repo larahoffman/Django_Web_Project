@@ -20,7 +20,7 @@ class Productos(models.Model):
     fecha = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f"Nombre: {self.nombre} | Descripcion: {self.descripcion}"
+        return f"{self.nombre} | Descripcion: {self.descripcion}"
 
 class Mensajes(models.Model):
     nombre = models.CharField(max_length=50)
