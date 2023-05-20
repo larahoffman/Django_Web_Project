@@ -21,6 +21,7 @@ urlpatterns = [
     path('logout', LogoutView.as_view(template_name='AppFinal/index.html'), name='Logout'),
     path('perfil', views.perfil, name="Perfil"),
     path('editarPerfil', views.editarPerfil, name="EditarPerfil"),
+    path('<str:slug>/', views.error_404, name='error_404')
 
 ]
 # handler404 = 'AppFinal.views.error_404'

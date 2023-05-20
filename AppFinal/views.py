@@ -9,8 +9,9 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import *
 from .forms import *
 
-# def error_404(request, exception):
-#     return render(request, 'AppFinal/error404.html') para cuando se haga el deploy
+def error_404(request, slug):
+    return render(request, 'AppFinal/error404.html')
+
 def admin_check(user):
     return user.is_superuser
 
