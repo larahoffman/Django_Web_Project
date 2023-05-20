@@ -25,19 +25,12 @@
             <a class="nav-link" href="{% url 'Login' %}">Iniciar Sesión</a>
             <a class="nav-link" href="{% url 'Register' %}">Registrarse</a>
           {% else %}
-            <!-- {% with avatares=request.user.avatar_set.all %}
-              {% if avatares %}
-                <img height="40px" src="{{avatares.0.imagen.url}}">
-                
-              {% endif %} -->
               {% if perfil.avatar %}
                 <img src="{{ perfil.avatar.url }}" height="40px" alt="Avatar">
               {% endif %}
               <p>Hola, {{request.user.username}}</p>
-            <!-- {% endwith %} -->
           <a class="nav-link" href="{% url 'Logout' %}">Logout</a>
           {% endif %}
-          <!-- <a class="nav-link" href="">Pedidos</a> -->
         </nav>
       </div>
     </header>

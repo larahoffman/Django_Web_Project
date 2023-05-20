@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from AppFinal.models import Productos, Mensajes, Perfiles
 
 STOCK_OPCIONES = [("disponible", "disponible"), ("no disponible", "no disponible")]
