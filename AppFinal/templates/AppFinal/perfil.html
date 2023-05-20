@@ -1,0 +1,17 @@
+{% extends "AppFinal/layout.html" %}
+{% load static %}
+
+{% block lo-que-cambia %}
+
+<h2>Perfil</h2>
+{% if perfil.avatar %}
+<p><img src="{{ perfil.avatar.url }}" style="width: 30%;"alt="Avatar"></p>
+{% endif %}
+<p>Email: {{ perfil.user.email }}</p>
+<p>Nombre: {{ perfil.user.first_name }} {{ perfil.user.last_name }}</p>
+<p>Descripción: {{ perfil.descripcion }}</p>
+{% if perfil.link %}
+<p>Link: {{ perfil.link }}</p>
+{% endif %}
+
+{% endblock %}

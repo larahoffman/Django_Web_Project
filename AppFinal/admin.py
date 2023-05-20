@@ -8,4 +8,3 @@ admin.site.register(Mensajes)
 
 admin.site.register(Perfiles)
 
-admin.site.register(Avatar)

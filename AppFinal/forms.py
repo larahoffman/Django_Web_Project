@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from AppFinal.models import Productos, Mensajes
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, UserChangeForm
+from AppFinal.models import Productos, Mensajes, Perfiles
 
 STOCK_OPCIONES = [("disponible", "disponible"), ("no disponible", "no disponible")]
 CATEGORIAS = [("Sillas de oficina", "Sillas de oficina"), ("Escritorios", "Escritorios")]
@@ -41,19 +41,40 @@ class UserRegisterForm(UserCreationForm):
         # Saca los mensajes de ayuda
         help_texts = {k:"" for k in fields}
 
-class UserEditForm(UserCreationForm):
-    email = forms.EmailField(label="Correo")
-    password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
-    password2 = forms.CharField(label="Repita la contraseña", widget=forms.PasswordInput)
+# class UserEditForm(UserCreationForm):
+#     email = forms.EmailField(label="Correo")
+#     password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
+#     password2 = forms.CharField(label="Repita la contraseña", widget=forms.PasswordInput)
 
+#     last_name = forms.CharField(label="Apellido", required=False)
+#     first_name = forms.CharField(label="Nombre", required=False)
+
+#     class Meta:
+#         model = User
+#         fields = ['email', 'password1', 'password2', 'last_name', 'first_name']
+#         help_texts = {k:"" for k in fields}
+
+# class AvatarFormulario(forms.Form):
+#     #Especificar los campos
+#     imagen = forms.ImageField(required=True)
+
+class CustomUserChangeForm(UserChangeForm):
+    password = None
+    email = forms.EmailField(label="Correo", disabled=True)
     last_name = forms.CharField(label="Apellido", required=False)
     first_name = forms.CharField(label="Nombre", required=False)
-
     class Meta:
         model = User
-        fields = ['email', 'password1', 'password2', 'last_name', 'first_name']
-        help_texts = {k:"" for k in fields}
+        fields = ['email', 'last_name', 'first_name']
 
-class AvatarFormulario(forms.Form):
-    #Especificar los campos
-    imagen = forms.ImageField(required=True)
+
+class PerfilesFormulario(forms.ModelForm):
+    
+    class Meta:
+        model = Perfiles
+        fields = ['avatar','descripcion','link']
+        widgets = {
+            'avatar': forms.ClearableFileInput,
+            'descripcion': forms.Textarea(attrs={'class':'form-control', 'label':"Biografía", 'placeholder':'Contanos algo sobre vos'}),
+            'link': forms.URLInput(attrs={'class':'form-control','placeholder':'Ejemplo: https://www.linkedin.com/'}),
+        }

@@ -3,9 +3,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-# class Categorias(models.Model):
-#     nombre_categoria = models.CharField(max_length=100)
-
 STOCK_OPCIONES = [("disponible", "disponible"), ("no disponible", "no disponible")]
 CATEGORIAS = [("Sillas de oficina", "Sillas de oficina"), ("Escritorios", "Escritorios")]
 
@@ -31,17 +28,12 @@ class Mensajes(models.Model):
         return f"{self.nombre} dijo: {self.comentario}"
 
 class Perfiles(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE) # un usuario puede tener un solo perfil
     avatar = models.ImageField(upload_to="avatars", null=True, blank=True)
     descripcion = models.TextField(null=True , blank=True)
     link = models.URLField(max_length=200, null=True , blank=True)
 
-    # def __str__(self):
-    #     return f"{self.user} - {self.avatar}"
-
-class Avatar(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    imagen = models.ImageField(upload_to="avatars", null=True, blank=True)
-
-    def __str__(self):
-        return f"{self.user} - {self.imagen}"
+    @staticmethod
+    def get_or_create_perfil(user):
+        perfil, created = Perfiles.objects.get_or_create(user=user)
+        return perfil, created

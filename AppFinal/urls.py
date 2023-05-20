@@ -23,7 +23,8 @@ urlpatterns = [
     path('login', views.login_request, name="Login"),
     path('registro', views.register, name="Register"),
     path('logout', LogoutView.as_view(template_name='AppFinal/index.html'), name='Logout'),
+    path('perfil', views.perfil, name="Perfil"),
     path('editarPerfil', views.editarPerfil, name="EditarPerfil"),
-    path('agregarAvatar', views.agregarAvatar, name="AgregarAvatar")
+    # path('agregarAvatar', views.agregarAvatar, name="AgregarAvatar")
 
 ]
