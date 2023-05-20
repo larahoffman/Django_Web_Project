@@ -9,10 +9,13 @@
 
     {% for mensaje in mensajes %}
         <li>{{mensaje}}</li>
+        {% if request.user.is_authenticated %}
         <a class="btn btn-primary" href="{% url 'EditarMensaje' mensaje.nombre %}">Editar</a>
         <a class="btn btn-danger" href="{% url 'EliminarMensaje' mensaje.nombre %}">Eliminar</a>
+        {% endif %}
     {% endfor %}
     <hr>
-    <a class="btn btn-secondary" href="mensajes">Agregar un comentario</a>
+    <p>Para agregar un comentario debe autenticarse primero</p>
+    <a class="btn btn-secondary" target="_blank" href="mensajes">Agregar un comentario</a>
 
 {% endblock %}

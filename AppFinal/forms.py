@@ -13,7 +13,8 @@ class ProductosFormulario(forms.Form):
         fields = '__all__'
         widgets = {
             "categoria": forms.Select(attrs={"class": "form-select"}),
-            "descripcion": forms.Textarea(attrs={"cols": 80, "rows": 20, "class": "form-control"})
+            "descripcion": forms.Textarea(attrs={"cols": 80, "rows": 20, "class": "form-control"}),
+            "imagen": forms.ImageField(widget=forms.ImageField)
             #falta completar (idem para Mensajes)
         }
 
@@ -31,14 +32,28 @@ class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
     password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
     password2 = forms.CharField(label="Repetir contraseña", widget=forms.PasswordInput)
- 
+    last_name = forms.CharField(label="Apellido", required=False)
+    first_name = forms.CharField(label="Nombre", required=False)
+    
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['email', 'password1', 'password2', 'last_name', 'first_name']
         # Saca los mensajes de ayuda
         help_texts = {k:"" for k in fields}
-# falta el de perfiles
 
-    # nombre = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Ingrese el nombre del producto"}))
-    # categoria = forms.ChoiceField(widget=forms.Select(attrs={"class": "form-select"}, choices=CATEGORIAS))
-    # descripcion = forms.Textarea(widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Ingrese una descripcion del producto"}))
+class UserEditForm(UserCreationForm):
+    email = forms.EmailField(label="Correo")
+    password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
+    password2 = forms.CharField(label="Repita la contraseña", widget=forms.PasswordInput)
+
+    last_name = forms.CharField(label="Apellido", required=False)
+    first_name = forms.CharField(label="Nombre", required=False)
+
+    class Meta:
+        model = User
+        fields = ['email', 'password1', 'password2', 'last_name', 'first_name']
+        help_texts = {k:"" for k in fields}
+
+class AvatarFormulario(forms.Form):
+    #Especificar los campos
+    imagen = forms.ImageField(required=True)

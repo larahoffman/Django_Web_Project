@@ -5,3 +5,7 @@ from .models import *
 admin.site.register(Productos)
 
 admin.site.register(Mensajes)
+
+admin.site.register(Perfiles)
+
+admin.site.register(Avatar)

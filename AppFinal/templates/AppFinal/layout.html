@@ -14,21 +14,31 @@
 
   <div class="container">
     <header class="mb-auto">
-      <div>
+      <div class="section-title">
         <h3 class="float-md-start mb-0"><a class="nav-link"href="{% url 'Inicio' %}">Coder & Co</a></h3>
         <nav class="nav nav-masthead justify-content-center float-md-end">
           <a class="nav-link" href="{% url 'Inicio' %}">Inicio</a>
-          <a class="nav-link" href="{% url 'Mensajes' %}">Mensajes</a>
-          <a class="nav-link" href="{% url 'LeerMensajes' %}">Ver Mensajes</a>
           <a class="nav-link" href="{% url 'List' %}">Productos</a>
-          <a class="nav-link" href="{% url 'Login' %}">Iniciar Sesión</a>
+          <a class="nav-link" href="{% url 'LeerMensajes' %}">Testimonios</a>
+          <a class="nav-link" href="{% url 'About' %}">Conocenos</a>
+          {% if not request.user.is_authenticated %}
+            <a class="nav-link" href="{% url 'Login' %}">Iniciar Sesión</a>
+            <a class="nav-link" href="{% url 'Register' %}">Registrarse</a>
+          {% else %}
+            {% with avatares=request.user.avatar_set.all %}
+              {% if avatares %}
+                <img height="40px" src="{{avatares.0.imagen.url}}">
+                
+              {% endif %}
+              <p>Hola, {{request.user.username}}</p>
+            {% endwith %}
           <a class="nav-link" href="{% url 'Logout' %}">Logout</a>
-          <a class="nav-link" href="{% url 'Register' %}">Registrarse</a>
+          {% endif %}
           <!-- <a class="nav-link" href="">Pedidos</a> -->
         </nav>
       </div>
     </header>
-    <div class="">
+    <div>
       {% block lo-que-cambia %}
       {% endblock %} 
     </div>

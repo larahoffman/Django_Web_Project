@@ -6,11 +6,12 @@
   <h1>Productos</h1>
   <hr>
   <p class="lead">Detalle</p>
-    <img src="" alt=""> <!--imagen del producto-->
+    <img src="{{producto.imagen.url}}" alt="imagen"> <!--imagen del producto-->
     <p>{{productos.nombre}}</p>
-    <p>{{productos.categoria}}</p>
+    <p>Categoria: {{productos.categoria}}</p>
     <p>{{productos.descripcion}}</p>
-    <p>{{productos.precio}}</p>
+    <p>ARS ${{productos.precio}}</p>
+    <p>Stock: {{productos.stock}}</p>
     <a href="{% url 'List' %}">Volver</a>
 </main>
 {% endblock %}
