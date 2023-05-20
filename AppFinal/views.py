@@ -4,13 +4,19 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import *
 from .forms import *
 
-def error_404(request, exception):
-    return render(request, 'AppFinal/error404.html')
+# def error_404(request, exception):
+#     return render(request, 'AppFinal/error404.html') para cuando se haga el deploy
+def admin_check(user):
+    return user.is_superuser
+
+class AdminCheckMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_superuser
 
 def inicio(request):
     return render(request, 'AppFinal/index.html')
@@ -80,18 +86,21 @@ class ProductosDetail(DetailView):
     model = Productos
     template_name = "AppFinal/productos_detalle.html"
 
-class ProductosCreate(LoginRequiredMixin, CreateView):
+# @user_passes_test(admin_check)
+class ProductosCreate(LoginRequiredMixin, AdminCheckMixin, CreateView):
     model = Productos
     template_name = "AppFinal/productos_create.html"
     success_url = "/productos/list"
     fields = '__all__'
 
-class ProductosUpdate(LoginRequiredMixin, UpdateView):
+# @user_passes_test(admin_check)
+class ProductosUpdate(LoginRequiredMixin, AdminCheckMixin, UpdateView):
     model = Productos
     success_url = "/productos/list"
     fields = '__all__'
 
-class ProductosDelete(LoginRequiredMixin, DeleteView):
+# @user_passes_test(admin_check)
+class ProductosDelete(LoginRequiredMixin, AdminCheckMixin, DeleteView):
     model = Productos
     success_url = "/productos/list"
 
@@ -118,6 +127,7 @@ def mensajes(request):
         miFormulario = MensajesFormulario()
         return render(request, "AppFinal/mensajes.html", {"miFormulario":miFormulario})
 
+@user_passes_test(admin_check)
 @login_required
 def eliminarMensaje(request, mensaje_nombre):
     mensaje = Mensajes.objects.get(nombre=mensaje_nombre)
@@ -129,6 +139,7 @@ def eliminarMensaje(request, mensaje_nombre):
  
     return render(request, "AppFinal/leerMensajes.html", contexto)
 
+@user_passes_test(admin_check)
 @login_required
 def editarMensaje(request, mensaje_nombre):
     mensaje = Mensajes.objects.get(nombre=mensaje_nombre)
@@ -151,7 +162,7 @@ def editarMensaje(request, mensaje_nombre):
 
             mensajes = Mensajes.objects.all()
             context = {"mensajes":mensajes}
-            return render(request, "AppFinal/leerMensajes.html", context) #mejor que te lleve a otra pagina como el inicio
+        return render(request, "AppFinal/leerMensajes.html", context) #mejor que te lleve a otra pagina como el inicio
     else:
         miFormulario = MensajesFormulario(initial={'nombre': mensaje.nombre, 'email': mensaje.email, 'comentario': mensaje.comentario})
 

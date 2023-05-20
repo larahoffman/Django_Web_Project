@@ -1,5 +1,5 @@
 from django.urls import path
-from django.conf.urls import handler404
+# from django.conf.urls import handler404
 from AppFinal import views
 from django.contrib.auth.views import LogoutView
 
@@ -23,4 +23,4 @@ urlpatterns = [
     path('editarPerfil', views.editarPerfil, name="EditarPerfil"),
 
 ]
-handler404 = 'AppFinal.views.error_404'
+# handler404 = 'AppFinal.views.error_404'

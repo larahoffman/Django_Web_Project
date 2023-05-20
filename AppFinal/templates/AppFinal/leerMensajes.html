@@ -5,17 +5,19 @@
 
     <h1>Comentarios</h1>
     <hr>
-    <p>Ver lo que se dice de...</p>
+    <p>Ver lo que se dice de nosotros</p>
 
     {% for mensaje in mensajes %}
         <li>{{mensaje}}</li>
-        {% if request.user.is_authenticated %}
+        {% if request.user.is_authenticated and request.user.is_superuser %}
         <a class="btn btn-primary" href="{% url 'EditarMensaje' mensaje.nombre %}">Editar</a>
         <a class="btn btn-danger" href="{% url 'EliminarMensaje' mensaje.nombre %}">Eliminar</a>
         {% endif %}
     {% endfor %}
     <hr>
+    {% if not request.user.is_authenticated %}
     <p>Para agregar un comentario debe autenticarse primero</p>
+    {% endif %}
     <a class="btn btn-secondary" target="_blank" href="mensajes">Agregar un comentario</a>
 
 {% endblock %}
