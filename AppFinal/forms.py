@@ -15,7 +15,6 @@ class ProductosFormulario(forms.Form):
             "categoria": forms.Select(attrs={"class": "form-select"}),
             "descripcion": forms.Textarea(attrs={"cols": 80, "rows": 20, "class": "form-control"}),
             "imagen": forms.ImageField(widget=forms.ImageField)
-            #falta completar (idem para Mensajes)
         }
 
 class MensajesFormulario(forms.Form):
@@ -26,7 +25,6 @@ class MensajesFormulario(forms.Form):
     class Meta:
         model = Mensajes
         fields = '__all__'
-    # nombre = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Ingrese su nombre"}))
 
 class UserRegisterForm(UserCreationForm):
     username = forms.CharField(label="Usuario")
