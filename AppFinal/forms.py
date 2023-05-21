@@ -29,6 +29,7 @@ class MensajesFormulario(forms.Form):
     # nombre = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Ingrese su nombre"}))
 
 class UserRegisterForm(UserCreationForm):
+    username = forms.CharField(label="Usuario")
     email = forms.EmailField()
     password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
     password2 = forms.CharField(label="Repetir contraseña", widget=forms.PasswordInput)
@@ -37,7 +38,7 @@ class UserRegisterForm(UserCreationForm):
     
     class Meta:
         model = User
-        fields = ['email', 'password1', 'password2', 'last_name', 'first_name']
+        fields = ['username','email', 'password1', 'password2', 'last_name', 'first_name']
         # Saca los mensajes de ayuda
         help_texts = {k:"" for k in fields}
 
