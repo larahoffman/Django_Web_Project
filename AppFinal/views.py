@@ -31,7 +31,7 @@ def buscar(request):
         productos = Productos.objects.filter(nombre__icontains=nombre)
         return render(request, "AppFinal/index.html", {"productos":productos, "nombre":nombre})
     else:
-        respuesta = "Ingrese un nombre"
+        respuesta = "Ingrese el nombre del producto"
         return render(request, "AppFinal/index.html", {"respuesta":respuesta})
 
 def login_request(request):

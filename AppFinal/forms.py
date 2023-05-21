@@ -41,26 +41,10 @@ class UserRegisterForm(UserCreationForm):
         # Saca los mensajes de ayuda
         help_texts = {k:"" for k in fields}
 
-# class UserEditForm(UserCreationForm):
-#     email = forms.EmailField(label="Correo")
-#     password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
-#     password2 = forms.CharField(label="Repita la contraseña", widget=forms.PasswordInput)
-
-#     last_name = forms.CharField(label="Apellido", required=False)
-#     first_name = forms.CharField(label="Nombre", required=False)
-
-#     class Meta:
-#         model = User
-#         fields = ['email', 'password1', 'password2', 'last_name', 'first_name']
-#         help_texts = {k:"" for k in fields}
-
-# class AvatarFormulario(forms.Form):
-#     #Especificar los campos
-#     imagen = forms.ImageField(required=True)
 
 class CustomUserChangeForm(UserChangeForm):
     password = None
-    email = forms.EmailField(label="Correo", disabled=True)
+    email = forms.EmailField(label="Correo")
     last_name = forms.CharField(label="Apellido", required=False)
     first_name = forms.CharField(label="Nombre", required=False)
     class Meta:
