@@ -1,10 +1,8 @@
 # Entrega Final Coderhouse - Python
-Proyecto de un sitio web de productos para el home office.
 * Autora: Lara Hoffman
 * Comisión: 40435
 
-# Deploy (31/05/2023)
-http://larahoffman.pythonanywhere.com/
+Proyecto de un sitio web de productos para el home office.
 
 # Funcionalidades para el usuario general
 * Buscar por nombre de producto
@@ -32,3 +30,6 @@ https://youtu.be/qNcIlcMBE2U
 * Nota: Me olvidé de mostrarlo pero también está la página de error 404 que se muestra cuando el usuario ingresó un url incorrecto.
 
 ![imagen error 404](https://github.com/larahoffman/Proyecto_Final_Coderhouse/blob/main/404.png)
+
+# Deploy (31/05/2023)
+http://larahoffman.pythonanywhere.com/
