@@ -1,8 +1,10 @@
 # Entrega Final Coderhouse - Python
+Proyecto de un sitio web de productos para el home office.
 * Autora: Lara Hoffman
 * Comisión: 40435
 
-Proyecto de un sitio web de productos para el home office.
+# Deploy (31/05/2023)
+http://larahoffman.pythonanywhere.com/
 
 # Funcionalidades para el usuario general
 * Buscar por nombre de producto
